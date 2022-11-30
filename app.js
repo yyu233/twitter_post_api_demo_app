@@ -86,7 +86,9 @@ app.post('/post_tweet', async (req, res) => {
   console.log(note);
   
   //Make the request
-  //postTwtHdler.data = 
+  postTwtHdler.data = {
+    "text": note
+  }
   const response = await postTwtHdler.getRequest(oAuthAccessToken);
   console.dir(response, {
     depth: null
