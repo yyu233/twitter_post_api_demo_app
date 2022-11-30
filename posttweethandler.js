@@ -54,12 +54,12 @@ class PostTweetHandler {
     }
     
     async requestToken () {
-      const authHeader = oauth.toHeader(oauth.authorize({
-        url: requestTokenURL,
+      const authHeader = this.oauth.toHeader(this.oauth.authorize({
+        url: this.requestTokenURL,
         method: 'POST'
       }));
     
-      const req = await got.post(requestTokenURL, {
+      const req = await got.post(this.requestTokenURL, {
         headers: {
           Authorization: authHeader["Authorization"]
         }

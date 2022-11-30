@@ -43,24 +43,25 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/post_tweet', (req, res) => {
-  res.render('auth', {authURL: 'test' });
+app.get('/post_tweet', async (req, res) => {
+  //res.render('auth', {authURL: 'test' });
   console.log("server received post request");
-  /**
-   *   try {
+
+  try {
     // Get request token
     const oAuthRequestToken = await postTwtHdler.requestToken();
     // Get authorization
     postTwtHdler.authorizeURL.searchParams.append('oauth_token', oAuthRequestToken.oauth_token);
 
-    console.log('Please go here and authorize:', authorizeURL.href);
-
+    const url = postTwtHdler.authorizeURL.href;
+    console.log('Please go here and authorize:', url);
+    res.render('auth', {authURL: url});
     //const pin = await input('Paste the PIN here: ');
 
   } catch (e) {
     console.log(e);
   }
-   */
+
 
 
 });
