@@ -66,7 +66,7 @@ app.get('/request_authorize', async (req, res) => {
   }
 });
 
-app.post('/submit_pin', (req, res) => {
+app.post('/submit_pin', async(req, res) => {
   console.log(req.url);
   console.log("server received PIN");
   const PIN = req.body["pin"];
@@ -74,8 +74,26 @@ app.post('/submit_pin', (req, res) => {
   console.log(PIN);
   
   // Get access token
-  //oAuthAccessToken = await postTwtHdler.accessToken(oAuthRequestToken, PIN.trim());
+  oAuthAccessToken = await postTwtHdler.accessToken(oAuthRequestToken, PIN.trim());
   res.render('post');
 });
+
+app.post('/post_tweet', async (req, res) => {
+  console.log(req.url);
+  console.log("server received note data");
+  console.log(req.body);
+  const note = req.body["note"]
+  console.log(note);
+  
+  //Make the request
+  //postTwtHdler.data = 
+  const response = await postTwtHdler.getRequest(oAuthAccessToken);
+  console.dir(response, {
+    depth: null
+  }); 
+  res.render('post');
+});
+
+
 
 module.exports = app;

@@ -105,7 +105,7 @@ class PostTweetHandler {
       };
     
       const authHeader = this.oauth.toHeader(this.oauth.authorize({
-        url: endpointURL,
+        url: this.endpointURL,
         method: 'POST'
       }, token));
     
