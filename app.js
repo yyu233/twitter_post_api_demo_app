@@ -11,6 +11,9 @@ var PostTweetHandler = require('./posttweethandler');
 
 var postTwtHdler = new PostTweetHandler();
 
+var oAuthRequestToken;
+var oAuthAccessToken;
+
 var app = express();
 
 
@@ -49,7 +52,7 @@ app.get('/post_tweet', async (req, res) => {
 
   try {
     // Get request token
-    const oAuthRequestToken = await postTwtHdler.requestToken();
+    oAuthRequestToken = await postTwtHdler.requestToken();
     // Get authorization
     postTwtHdler.authorizeURL.searchParams.append('oauth_token', oAuthRequestToken.oauth_token);
 
@@ -61,8 +64,14 @@ app.get('/post_tweet', async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
 
-
+app.post('/submit_pin', (req, res) => {
+  console.log("server received PIN");
+  const PIN = req.body["pin"];
+  console.log(req.body);
+  console.log(PIN);
+  
 
 });
 

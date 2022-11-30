@@ -76,8 +76,8 @@ class PostTweetHandler {
       oauth_token,
       oauth_token_secret
     }, verifier) {
-      const authHeader = oauth.toHeader(oauth.authorize({
-        url: accessTokenURL,
+      const authHeader = this.oauth.toHeader(this.oauth.authorize({
+        url: this.accessTokenURL,
         method: 'POST'
       }));
       const path = `https://api.twitter.com/oauth/access_token?oauth_verifier=${verifier}&oauth_token=${oauth_token}`
