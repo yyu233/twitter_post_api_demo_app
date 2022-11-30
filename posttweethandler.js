@@ -104,13 +104,13 @@ class PostTweetHandler {
         secret: oauth_token_secret
       };
     
-      const authHeader = oauth.toHeader(oauth.authorize({
+      const authHeader = this.oauth.toHeader(this.oauth.authorize({
         url: endpointURL,
         method: 'POST'
       }, token));
     
-      const req = await got.post(endpointURL, {
-        json: data,
+      const req = await got.post(this.endpointURL, {
+        json: this.data,
         responseType: 'json',
         headers: {
           Authorization: authHeader["Authorization"],

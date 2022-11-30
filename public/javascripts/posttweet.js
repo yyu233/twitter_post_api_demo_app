@@ -1,8 +1,8 @@
 console.log("Client side code runninng");
 
-function post_tweet() {
+function request_authorize() {
     console.log("post tweet button is clicked");
-    fetch('/post_tweet', {method: 'GET'})
+    fetch('/request_authorize', {method: 'GET'})
     .then(function(res) {
         if (res.ok) {
         console.log('post tweet request sent succesfully');

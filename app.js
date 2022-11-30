@@ -46,9 +46,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/post_tweet', async (req, res) => {
+app.get('/request_authorize', async (req, res) => {
   //res.render('auth', {authURL: 'test' });
-  console.log("server received post request");
+  console.log("server received authorize request");
 
   try {
     // Get request token
@@ -67,12 +67,15 @@ app.get('/post_tweet', async (req, res) => {
 });
 
 app.post('/submit_pin', (req, res) => {
+  console.log(req.url);
   console.log("server received PIN");
   const PIN = req.body["pin"];
   console.log(req.body);
   console.log(PIN);
   
-
+  // Get access token
+  //oAuthAccessToken = await postTwtHdler.accessToken(oAuthRequestToken, PIN.trim());
+  res.render('post');
 });
 
 module.exports = app;
