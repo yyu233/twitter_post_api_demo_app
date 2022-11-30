@@ -3,5 +3,7 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  .button(onclick="post_tweet()") post a default tweet
+  form(method="get" action="/post_tweet")
+    button(type="submit", onclick="post_tweet()") post a default tweet
+  p authorization url: #{authURL}
 

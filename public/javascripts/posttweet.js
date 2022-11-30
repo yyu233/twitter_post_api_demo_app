@@ -2,7 +2,7 @@ console.log("Client side code runninng");
 
 function post_tweet() {
     console.log("post tweet button is clicked");
-    fetch('/posttweet', {method: 'POST'})
+    fetch('/post_tweet', {method: 'GET'})
     .then(function(res) {
         if (res.ok) {
         console.log('post tweet request sent succesfully');

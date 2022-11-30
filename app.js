@@ -28,9 +28,9 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   next(createError(404));
-});
+});*/
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -43,8 +43,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.post('/posttweet', async (req, res) => {
-  try {
+app.get('/post_tweet', (req, res) => {
+  res.render('auth', {authURL: 'test' });
+  console.log("server received post request");
+  /**
+   *   try {
     // Get request token
     const oAuthRequestToken = await postTwtHdler.requestToken();
     // Get authorization
@@ -57,6 +60,8 @@ app.post('/posttweet', async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+   */
+
 
 });
 
