@@ -3,4 +3,5 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  .button(onclick="post_tweet()") post a default tweet
+  form(method="get", action="/request_authorize")
+    button(type="submit") post a default tweet

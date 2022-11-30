@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    p Authorization Successful
+    form(method="post", action="/post_tweet")
+        textarea(name="note", cols="30", rows="10", placeholder="Enter your note here")
+        button(type="submit") post Tweet

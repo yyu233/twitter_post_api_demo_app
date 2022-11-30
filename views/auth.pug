@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    p authorization url: #{authURL}
+    form(method="post", action="/submit_pin")
+        p PIN:
+            input(type="text", id="pin", name="pin") 
+        button(type="submit") submit PIN
