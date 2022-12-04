@@ -38,3 +38,22 @@ function submit_pin() {
         console.log(error);
     });
 };
+
+function display_profile_timeline() {
+    let name = document.getElementById("user_name").value;
+    twttr.widgets.createTimeline(
+        {
+          sourceType: 'profile',
+          screenName: name
+        },
+        document.getElementById('timeline'),
+        {
+          width: '500',
+          height: '500',
+          tweetLimit: '10',
+          related: 'twitterdev,twitterapi'
+        }).then(function (el) {
+          console.log('Embedded a timeline.')
+        });
+};
+
