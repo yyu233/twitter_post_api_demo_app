@@ -1,8 +1,9 @@
 extends layout
 
 block content
-    a(href=authURL, target="_blank", rel="noopener noreferrer") Please go here and authorize
-    form(method="post", action="/submit_pin")
-        p PIN:
-            input(type="text", id="pin", name="pin") 
-        button(type="submit") submit PIN
+    div(class="screen_center")
+        a(href=authURL, target="_blank", rel="noopener noreferrer") Please go here and authorize
+        form(method="post", action="/submit_pin")
+            p PIN:
+                input(type="text", id="pin", name="pin") 
+            button(type="submit") submit PIN

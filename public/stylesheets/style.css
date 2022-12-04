@@ -6,3 +6,41 @@ body {
 a {
   color: #00B7FF;
 }
+
+.block_center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+.span_center {
+  text-align: center;
+}
+
+.screen_center{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.screen_center_scroll{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.left {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.right {
+  float: right;
+  width: 50%;
+  padding: 10px;
+}

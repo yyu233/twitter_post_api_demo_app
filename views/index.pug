@@ -1,7 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(method="get", action="/request_authorize")
-    button(type="submit") post a default tweet
+  div(class="screen_center")
+    span(class="span_center")
+      h1= title
+    span(class="span_center") 
+      p Welcome to #{title}
+    span(class="span_center")
+      form(method="get", action="/request_authorize")
+        button(type="submit") post your note to Twitter
