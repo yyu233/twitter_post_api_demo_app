@@ -2,7 +2,7 @@ const got = require('got');
 const crypto = require('crypto');
 const OAuth = require('oauth-1.0a');
 const qs = require('querystring');
-const propReader = require('properties-reader');
+require('dotenv').config({path:'./config/.env'});
 
 
 const readline = require('readline').createInterface({
@@ -18,9 +18,8 @@ class PostTweetHandler {
         //const consumer_key = process.env.CONSUMER_KEY;
         //const consumer_secret = process.env.CONSUMER_SECRET;
         constructor() {
-            this.props = propReader('config/twitter_api.properties');
-            this.consumer_key = this.props.get("CONSUMER_KEY");
-            this.consumer_secret = this.props.get("CONSUMER_SECRET");
+            this.consumer_key = process.env.CONSUMER_KEY;
+            this.consumer_secret = process.env.CONSUMER_SECRET;
             // Be sure to add replace the text of the with the text you wish to Tweet.
             // You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
             this.data = {
