@@ -40,13 +40,17 @@ function submit_pin() {
 };
 
 function display_profile_timeline() {
+    let container = document.getElementById('timeline');
     let name = document.getElementById("user_name").value;
+
+    removeAllChildNodes(container);
+    
     twttr.widgets.createTimeline(
         {
           sourceType: 'profile',
           screenName: name
         },
-        document.getElementById('timeline'),
+        container,
         {
           width: '500',
           height: '500',
@@ -57,3 +61,8 @@ function display_profile_timeline() {
         });
 };
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
