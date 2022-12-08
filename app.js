@@ -30,43 +30,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-/*app.use(function(req, res, next) {
-  next(createError(404));
-});*/
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-app.get('/request_authorize', async (req, res) => {
-  //res.render('auth', {authURL: 'test' });
+app.get('/request_authorize', async (req, res, next) => {
   console.log("server received authorize request");
-
   try {
     // Get request token
     oAuthRequestToken = await postTwtHdler.requestToken();
     // Get authorization
-    postTwtHdler.authorizeURL.searchParams.append('oauth_token', oAuthRequestToken.oauth_token);
+    const url = postTwtHdler.authorizeBaseURL + '?' + 'oauth_token' + '=' + oAuthRequestToken.oauth_token;
 
-    const url = postTwtHdler.authorizeURL.href;
     console.log('Please go here and authorize:', url);
+    //throw new Error("Test error");
     res.render('auth', {authURL: url});
-    //const pin = await input('Paste the PIN here: ');
-
   } catch (e) {
     console.log(e);
+    next(e);
   }
 });
 
-app.post('/submit_pin', async(req, res) => {
+app.post('/submit_pin', async(req, res, next) => {
   console.log(req.url);
   console.log("server received PIN");
   const PIN = req.body["pin"];
@@ -74,11 +57,17 @@ app.post('/submit_pin', async(req, res) => {
   console.log(PIN);
   
   // Get access token
-  oAuthAccessToken = await postTwtHdler.accessToken(oAuthRequestToken, PIN.trim());
-  res.render('post');
+  try {
+    oAuthAccessToken = await postTwtHdler.accessToken(oAuthRequestToken, PIN.trim());
+    res.render('post');
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+
 });
 
-app.post('/post_tweet', async (req, res) => {
+app.post('/post_tweet', async (req, res, next) => {
   console.log(req.url);
   console.log("server received note data");
   console.log(req.body);
@@ -89,13 +78,36 @@ app.post('/post_tweet', async (req, res) => {
   postTwtHdler.data = {
     "text": note
   }
-  const response = await postTwtHdler.getRequest(oAuthAccessToken);
-  console.dir(response, {
-    depth: null
-  }); 
-  res.render('post');
+
+  try {
+    const response = await postTwtHdler.getRequest(oAuthAccessToken);
+    console.dir(response, {
+      depth: null
+    }); 
+    res.render('post');
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+
 });
 
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  console.log(err.status);
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 module.exports = app;

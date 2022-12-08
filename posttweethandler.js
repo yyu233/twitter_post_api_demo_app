@@ -30,7 +30,7 @@ class PostTweetHandler {
             
             // this example uses PIN-based OAuth to authorize the user
             this.requestTokenURL = 'https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write';
-            this.authorizeURL = new URL('https://api.twitter.com/oauth/authorize');
+            this.authorizeBaseURL = 'https://api.twitter.com/oauth/authorize';
             this.accessTokenURL = 'https://api.twitter.com/oauth/access_token';
             this.oauth = OAuth({
               consumer: {
@@ -130,9 +130,9 @@ class PostTweetHandler {
         // Get request token
         const oAuthRequestToken = await requestToken();
         // Get authorization
-        authorizeURL.searchParams.append('oauth_token', oAuthRequestToken.oauth_token);
+        authURL = this.authorizeBaseURL + '?' + 'oauth_token' + '=' + oAuthRequestToken.oauth_token;
 
-        console.log('Please go here and authorize:', authorizeURL.href);
+        console.log('Please go here and authorize:', authURL);
     
         const pin = await input('Paste the PIN here: ');
         // Get the access token
